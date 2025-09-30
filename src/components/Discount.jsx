@@ -25,7 +25,7 @@ const Discount = () => {
             <div className="discount__text">
               <div className="discount__text__title">
                 <span>Discount</span>
-                <h2>Summer 2019</h2>
+                <h2>Summer 2025</h2>
                 <h5>
                   <span>Sale</span> 50%
                 </h5>

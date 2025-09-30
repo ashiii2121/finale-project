@@ -8,7 +8,9 @@ const Categories = () => {
       elements.forEach((element) => {
         const bg = element.getAttribute("data-setbg");
         if (bg) {
-          element.style.backgroundImage = `url(/${bg})`;
+          // Check if the image is a URL (external) or local path
+          const imageUrl = bg.startsWith("http") ? bg : `/${bg}`;
+          element.style.backgroundImage = `url(${imageUrl})`;
         }
       });
     };
@@ -34,7 +36,6 @@ const Categories = () => {
             <div
               className="categories__item categories__large__item set-bg"
               data-setbg="img/categories/category-1.jpg"
-              style={{ minHeight: "500px" }}
             >
               <div className="categories__text">
                 <h1>Women's fashion</h1>
@@ -53,7 +54,6 @@ const Categories = () => {
                 <div
                   className="categories__item set-bg"
                   data-setbg="img/categories/category-2.jpg"
-                  style={{ minHeight: "250px" }}
                 >
                   <div className="categories__text">
                     <h4>Men's fashion</h4>
@@ -66,7 +66,6 @@ const Categories = () => {
                 <div
                   className="categories__item set-bg"
                   data-setbg="img/categories/category-3.jpg"
-                  style={{ minHeight: "250px" }}
                 >
                   <div className="categories__text">
                     <h4>Kid's fashion</h4>
@@ -79,7 +78,6 @@ const Categories = () => {
                 <div
                   className="categories__item set-bg"
                   data-setbg="img/categories/category-4.jpg"
-                  style={{ minHeight: "250px" }}
                 >
                   <div className="categories__text">
                     <h4>Cosmetics</h4>
@@ -92,7 +90,6 @@ const Categories = () => {
                 <div
                   className="categories__item set-bg"
                   data-setbg="img/categories/category-5.jpg"
-                  style={{ minHeight: "250px" }}
                 >
                   <div className="categories__text">
                     <h4>Accessories</h4>
