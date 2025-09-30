@@ -340,6 +340,69 @@
 }
 
 /* Responsive adjustments */
+@media (min-width: 1200px) {
+  .banner {
+    min-height: 500px;
+  }
+
+  .banner__slider {
+    padding: 150px 0 0;
+  }
+
+  .banner__text h1 {
+    font-size: 80px;
+    margin-bottom: 25px;
+  }
+
+  .banner__text span {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+
+  .banner__text .primary-btn {
+    margin-top: 30px;
+    padding: 12px 30px;
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .banner {
+    min-height: 600px;
+  }
+
+  .banner__text h1 {
+    font-size: 90px;
+  }
+
+  .banner__text span {
+    font-size: 20px;
+  }
+
+  .banner__text .primary-btn {
+    padding: 15px 40px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 992px) {
+  .banner {
+    min-height: 400px;
+  }
+
+  .banner__slider {
+    padding: 120px 0 0;
+  }
+
+  .banner__text h1 {
+    font-size: 60px;
+  }
+
+  .banner__text span {
+    font-size: 16px;
+  }
+}
+
 @media (max-width: 991px) {
   .promotion-banner__content h2 {
     font-size: 36px;
@@ -485,38 +548,5 @@
     width: 8px;
     height: 8px;
     margin: 0 3px;
-  }
-}
-
-/* Wishlist message popup */
-.wishlist-message-popup {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #fff;
-  color: #333;
-  padding: 15px 20px;
-  border-radius: 5px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
-  border-left: 4px solid #ca1515;
-  font-weight: 500;
-  animation: slideIn 0.3s ease-out;
-}
-
-/* Wishlist active state */
-.icon_heart_alt.wishlist-active {
-  color: #ca1515;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateX(0);
-    opacity: 1;
   }
 }

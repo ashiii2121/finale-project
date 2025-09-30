@@ -43,6 +43,10 @@ const Banner = () => {
               nav: true,
               dots: true,
             },
+            1200: {
+              nav: true,
+              dots: true,
+            },
           },
         });
       }
