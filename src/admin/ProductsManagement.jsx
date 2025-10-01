@@ -18,6 +18,7 @@ const ProductsManagement = () => {
     price: "",
     stock: "",
     description: "",
+    imageUrl: "", // Added image URL field
   });
 
   // Mock data for products
@@ -32,6 +33,7 @@ const ProductsManagement = () => {
           price: 49.99,
           stock: 25,
           description: "Lightweight summer dress",
+          imageUrl: "https://via.placeholder.com/150", // Added image URL
         },
         {
           id: 2,
@@ -40,6 +42,7 @@ const ProductsManagement = () => {
           price: 29.99,
           stock: 40,
           description: "Comfortable cotton t-shirt",
+          imageUrl: "https://via.placeholder.com/150", // Added image URL
         },
         {
           id: 3,
@@ -48,6 +51,7 @@ const ProductsManagement = () => {
           price: 89.99,
           stock: 15,
           description: "Lightweight running shoes",
+          imageUrl: "https://via.placeholder.com/150", // Added image URL
         },
         {
           id: 4,
@@ -56,6 +60,7 @@ const ProductsManagement = () => {
           price: 39.99,
           stock: 30,
           description: "Genuine leather wallet",
+          imageUrl: "https://via.placeholder.com/150", // Added image URL
         },
         {
           id: 5,
@@ -64,6 +69,7 @@ const ProductsManagement = () => {
           price: 59.99,
           stock: 20,
           description: "UV protection sunglasses",
+          imageUrl: "https://via.placeholder.com/150", // Added image URL
         },
         {
           id: 6,
@@ -72,6 +78,7 @@ const ProductsManagement = () => {
           price: 129.99,
           stock: 12,
           description: "Insulated winter jacket",
+          imageUrl: "https://via.placeholder.com/150", // Added image URL
         },
         {
           id: 7,
@@ -80,6 +87,7 @@ const ProductsManagement = () => {
           price: 19.99,
           stock: 35,
           description: "Wide brim summer hat",
+          imageUrl: "https://via.placeholder.com/150", // Added image URL
         },
         {
           id: 8,
@@ -88,6 +96,7 @@ const ProductsManagement = () => {
           price: 79.99,
           stock: 18,
           description: "Water resistant sports watch",
+          imageUrl: "https://via.placeholder.com/150", // Added image URL
         },
       ];
       setProducts(mockProducts);
@@ -166,6 +175,7 @@ const ProductsManagement = () => {
       price: product.price,
       stock: product.stock,
       description: product.description,
+      imageUrl: product.imageUrl || "", // Added image URL
     });
     setShowEditForm(true);
     setShowAddForm(true);
@@ -184,6 +194,7 @@ const ProductsManagement = () => {
       price: "",
       stock: "",
       description: "",
+      imageUrl: "", // Added image URL
     });
     setShowAddForm(false);
     setShowEditForm(false);
@@ -304,6 +315,17 @@ const ProductsManagement = () => {
                 </div>
               </div>
               <div className="form-group">
+                <label htmlFor="imageUrl">Image URL</label>
+                <input
+                  type="text"
+                  id="imageUrl"
+                  name="imageUrl"
+                  value={formData.imageUrl}
+                  onChange={handleInputChange}
+                  placeholder="https://example.com/image.jpg"
+                />
+              </div>
+              <div className="form-group">
                 <label htmlFor="description">Description</label>
                 <textarea
                   id="description"
@@ -365,7 +387,17 @@ const ProductsManagement = () => {
                   <tr key={product.id}>
                     <td>
                       <div className="product-info">
-                        <div className="product-image-placeholder"></div>
+                        <div className="product-image-placeholder">
+                          {product.imageUrl ? (
+                            <img
+                              src={product.imageUrl}
+                              alt={product.name}
+                              className="product-image"
+                            />
+                          ) : (
+                            "No Image"
+                          )}
+                        </div>
                         <div>
                           <div className="product-name">{product.name}</div>
                           <div className="product-description">
