@@ -24,6 +24,17 @@ import ContactPage from "./pages/ContactPage";
 // Import the Shop page component
 import ShopPage from "./pages/ShopPage";
 
+// Import Admin components
+import AdminDashboard from "./admin/AdminDashboard";
+import AdminLayout from "./admin/AdminLayout";
+import AdminLogin from "./admin/AdminLogin";
+import AdminGuard from "./admin/AdminGuard";
+import ProductsManagement from "./admin/ProductsManagement";
+import OrdersManagement from "./admin/OrdersManagement";
+import CustomersManagement from "./admin/CustomersManagement";
+import Analytics from "./admin/Analytics";
+import Settings from "./admin/Settings";
+
 // Placeholder components for the other routes
 const Pages = () => <div>Pages</div>;
 const ProductDetails = () => <div>Product Details Page</div>;
@@ -65,6 +76,69 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/wishlist" element={<WishlistPage />} />
         <Route path="/cart" element={<CartPage />} />
+
+        {/* Admin Routes */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route
+          path="/admin"
+          element={
+            <AdminGuard>
+              <AdminLayout>
+                <AdminDashboard />
+              </AdminLayout>
+            </AdminGuard>
+          }
+        />
+        <Route
+          path="/admin/products"
+          element={
+            <AdminGuard>
+              <AdminLayout>
+                <ProductsManagement />
+              </AdminLayout>
+            </AdminGuard>
+          }
+        />
+        <Route
+          path="/admin/orders"
+          element={
+            <AdminGuard>
+              <AdminLayout>
+                <OrdersManagement />
+              </AdminLayout>
+            </AdminGuard>
+          }
+        />
+        <Route
+          path="/admin/customers"
+          element={
+            <AdminGuard>
+              <AdminLayout>
+                <CustomersManagement />
+              </AdminLayout>
+            </AdminGuard>
+          }
+        />
+        <Route
+          path="/admin/analytics"
+          element={
+            <AdminGuard>
+              <AdminLayout>
+                <Analytics />
+              </AdminLayout>
+            </AdminGuard>
+          }
+        />
+        <Route
+          path="/admin/settings"
+          element={
+            <AdminGuard>
+              <AdminLayout>
+                <Settings />
+              </AdminLayout>
+            </AdminGuard>
+          }
+        />
       </Routes>
       <Footer />
     </div>
