@@ -1,139 +1,73 @@
 import React, { useEffect, useState } from "react";
 import { useCart } from "../hooks/useCart";
 import useWishlist from "../hooks/useWishlist";
+import { productService } from "../services/productService";
 
 const Products = () => {
   const { addToCart } = useCart();
   const { addToWishlist, isInWishlist } = useWishlist();
   const [showWishlistMessage, setShowWishlistMessage] = useState(false);
   const [wishlistMessage, setWishlistMessage] = useState("");
-
-  // Sample product data with external image links
-  const products = [
-    {
-      id: 1,
-      name: "Buttons tweed blazer",
-      price: 59.0,
-      image: "img/product/product-1.jpg",
-      category: "women",
-      rating: 5,
-      label: "new",
-    },
-    {
-      id: 2,
-      name: "Flowy striped skirt",
-      price: 49.0,
-      image:
-        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-      category: "men",
-      rating: 5,
-      label: null,
-    },
-    {
-      id: 3,
-      name: "Cotton T-Shirt",
-      price: 59.0,
-      image: "img/product/product-3.jpg",
-      category: "accessories",
-      rating: 5,
-      label: "stockout",
-    },
-    {
-      id: 4,
-      name: "Slim striped pocket shirt",
-      price: 49.0,
-      image:
-        "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-      category: "cosmetic",
-      rating: 5,
-      label: null,
-    },
-    {
-      id: 5,
-      name: "Boxy heather t-shirt",
-      price: 39.0,
-      image: "img/product/product-5.jpg",
-      category: "women",
-      rating: 4,
-      label: null,
-    },
-    {
-      id: 6,
-      name: "Floral print dress",
-      price: 79.0,
-      image:
-        "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-      category: "women",
-      rating: 5,
-      label: "sale",
-    },
-    {
-      id: 7,
-      name: "Denim jacket",
-      price: 89.0,
-      image: "img/product/product-7.jpg",
-      category: "men",
-      rating: 4,
-      label: null,
-    },
-    {
-      id: 8,
-      name: "Basic flowy tank",
-      price: 29.0,
-      image:
-        "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-      category: "women",
-      rating: 3,
-      label: null,
-    },
-  ];
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    // Set background images directly first
-    const setBgImages = () => {
-      const elements = document.querySelectorAll(".set-bg");
-      elements.forEach((element) => {
-        const bg = element.getAttribute("data-setbg");
-        if (bg) {
-          // Check if the image is a URL (external) or local path
-          const imageUrl = bg.startsWith("http") ? bg : `/${bg}`;
-          element.style.backgroundImage = `url(${imageUrl})`;
-        }
-      });
-    };
-
-    // Call setBgImages immediately
-    setBgImages();
-
-    // Call the global initialization function if available
-    if (window.initAshionComponents) {
-      // Use a small delay to ensure all DOM elements are ready
-      setTimeout(() => {
-        window.initAshionComponents();
-      }, 100);
-    }
+    fetchProducts();
   }, []);
 
-  // Function to render star ratings
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      const response = await productService.getProducts({ limit: 8 });
+      setProducts(response.products || []);
+    } catch (err) {
+      setError(err.message || "Failed to load products");
+      console.error("Error fetching products:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (products.length > 0) {
+      // Set background images
+      const setBgImages = () => {
+        const elements = document.querySelectorAll(".set-bg");
+        elements.forEach((element) => {
+          const bg = element.getAttribute("data-setbg");
+          if (bg) {
+            const imageUrl = bg.startsWith("http") ? bg : `/${bg}`;
+            element.style.backgroundImage = `url(${imageUrl})`;
+          }
+        });
+      };
+
+      setBgImages();
+
+      if (window.initAshionComponents) {
+        setTimeout(() => {
+          window.initAshionComponents();
+        }, 100);
+      }
+    }
+  }, [products]);
+
   const renderRating = (rating) => {
     return Array.from({ length: 5 }, (_, i) => (
       <i key={i} className={`fa fa-star${i < rating ? "" : "-o"}`}></i>
     ));
   };
 
-  // Function to handle adding product to cart
   const handleAddToCart = (product) => {
     addToCart(product);
-    // Show a visual feedback (optional)
     alert(`${product.name} added to cart!`);
   };
 
-  // Function to handle adding product to wishlist
   const handleAddToWishlist = (product) => {
-    const wasInWishlist = isInWishlist(product.id);
+    const wasInWishlist = isInWishlist(product._id);
     addToWishlist(product);
 
-    // Show message
     if (wasInWishlist) {
       setWishlistMessage(`${product.name} removed from wishlist!`);
     } else {
@@ -141,14 +75,48 @@ const Products = () => {
     }
     setShowWishlistMessage(true);
 
-    // Hide message after 2 seconds
     setTimeout(() => {
       setShowWishlistMessage(false);
     }, 2000);
   };
 
+  if (loading) {
+    return (
+      <section className="product spad">
+        <div className="container">
+          <div className="row">
+            <div className="col-12 text-center">
+              <div className="spinner-border" role="status">
+                <span className="sr-only">Loading products...</span>
+              </div>
+              <p>Loading products...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="product spad">
+        <div className="container">
+          <div className="row">
+            <div className="col-12 text-center">
+              <div className="alert alert-danger" role="alert">
+                {error}
+              </div>
+              <button onClick={fetchProducts} className="site-btn">
+                Try Again
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    /* Product Section Begin */
     <section className="product spad">
       <div className="container">
         <div className="row">
@@ -164,16 +132,16 @@ const Products = () => {
               </li>
               <li data-filter=".women">Women's</li>
               <li data-filter=".men">Men's</li>
-              <li data-filter=".kid">Kid's</li>
               <li data-filter=".accessories">Accessories</li>
-              <li data-filter=".cosmetic">Cosmetics</li>
+              <li data-filter=".shoes">Shoes</li>
+              <li data-filter=".bags">Bags</li>
             </ul>
           </div>
         </div>
         <div className="row property__gallery">
           {products.map((product) => (
             <div
-              key={product.id}
+              key={product._id}
               className={`col-xl-3 col-lg-4 col-md-6 col-sm-6 mix ${product.category}`}
             >
               <div className="product__item">
@@ -182,18 +150,14 @@ const Products = () => {
                   data-setbg={product.image}
                 >
                   {product.label && (
-                    <div
-                      className={`label ${
-                        product.label === "stockout"
-                          ? "stockout"
-                          : product.label
-                      }`}
-                    >
-                      {product.label === "stockout"
-                        ? "Out Of Stock"
+                    <div className={`label ${product.label}`}>
+                      {product.label === "new"
+                        ? "New"
                         : product.label === "sale"
-                        ? "Sale"
-                        : "New"}
+                          ? "Sale"
+                          : product.label === "hot"
+                            ? "Hot"
+                            : product.label}
                     </div>
                   )}
                   <ul className="product__hover">
@@ -211,9 +175,8 @@ const Products = () => {
                         }}
                       >
                         <span
-                          className={`icon_heart_alt ${
-                            isInWishlist(product.id) ? "wishlist-active" : ""
-                          }`}
+                          className={`icon_heart_alt ${isInWishlist(product._id) ? "wishlist-active" : ""
+                            }`}
                         ></span>
                       </a>
                     </li>
@@ -237,6 +200,9 @@ const Products = () => {
                   <div className="rating">{renderRating(product.rating)}</div>
                   <div className="product__price">
                     $ {product.price.toFixed(2)}
+                    {product.originalPrice && (
+                      <span> ${product.originalPrice.toFixed(2)}</span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -245,12 +211,10 @@ const Products = () => {
         </div>
       </div>
 
-      {/* Wishlist message popup */}
       {showWishlistMessage && (
         <div className="wishlist-message-popup">{wishlistMessage}</div>
       )}
     </section>
-    /* Product Section End */
   );
 };
 

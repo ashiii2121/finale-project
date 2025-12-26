@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { authService } from "../services/authService";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ const Register = () => {
     confirmPassword: "",
   });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -19,7 +21,7 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -54,14 +56,21 @@ const Register = () => {
       return;
     }
 
-    // Simulate registration process
-    // In a real app, you would make an API call here
-    console.log("Registration attempt with:", formData);
+    setLoading(true);
 
-    // For demo purposes, we'll just navigate to login page
-    // In a real app, you would handle registration response
-    alert("Registration successful! Please login with your credentials.");
-    navigate("/login");
+    try {
+      const name = `${formData.firstName} ${formData.lastName}`;
+      await authService.register({
+        name,
+        email: formData.email,
+        password: formData.password,
+      });
+      navigate("/");
+    } catch (err) {
+      setError(err.message || "Registration failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -136,8 +145,9 @@ const Register = () => {
                   type="submit"
                   className="site-btn"
                   style={{ marginTop: "20px" }}
+                  disabled={loading}
                 >
-                  Register
+                  {loading ? "Registering..." : "Register"}
                 </button>
               </form>
               <div

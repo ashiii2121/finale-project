@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { authService } from "../services/authService";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -24,14 +26,16 @@ const Login = () => {
       return;
     }
 
-    // Simulate login process
-    // In a real app, you would make an API call here
-    console.log("Login attempt with:", { email, password });
+    setLoading(true);
 
-    // For demo purposes, we'll just navigate to home page
-    // In a real app, you would handle authentication response
-    alert("Login successful! Redirecting to home page.");
-    navigate("/");
+    try {
+      await authService.login({ email, password });
+      navigate("/");
+    } catch (err) {
+      setError(err.message || "Login failed. Please check your credentials.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -73,8 +77,9 @@ const Login = () => {
                   type="submit"
                   className="site-btn"
                   style={{ marginTop: "20px" }}
+                  disabled={loading}
                 >
-                  Login
+                  {loading ? "Logging in..." : "Login"}
                 </button>
               </form>
               <div

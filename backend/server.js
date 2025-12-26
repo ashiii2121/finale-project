@@ -6,6 +6,8 @@ import helmet from 'helmet';
 import mongoSanitize from 'express-mongo-sanitize';
 import xss from 'xss-clean';
 import morgan from 'morgan';
+import compression from 'compression';
+import mongoose from 'mongoose';
 import connectDatabase from './config/database.js';
 import errorHandler from './middleware/errorHandler.js';
 import { apiLimiter } from './middleware/rateLimiter.js';
@@ -28,6 +30,9 @@ connectDatabase();
 app.use(helmet()); // Set security headers
 app.use(mongoSanitize()); // Prevent MongoDB injection
 app.use(xss()); // Prevent XSS attacks
+
+// Compression middleware
+app.use(compression()); // Compress all HTTP responses
 
 // CORS configuration
 const corsOptions = {
@@ -52,18 +57,43 @@ if (process.env.NODE_ENV === 'development') {
 // Rate limiting
 app.use('/api/', apiLimiter);
 
-// API routes
-app.use('/api/auth', authRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/orders', orderRoutes);
+// API v1 routes
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/products', productRoutes);
+app.use('/api/v1/orders', orderRoutes);
 
-// Health check route
-app.get('/api/health', (req, res) => {
-    res.status(200).json({
+// Health check route (v1)
+app.get('/api/v1/health', async (req, res) => {
+    const healthcheck = {
         success: true,
         message: 'Server is running',
+        version: '1.0.0',
         timestamp: new Date().toISOString(),
-    });
+        uptime: `${Math.floor(process.uptime())} seconds`,
+        environment: process.env.NODE_ENV || 'development',
+        database: {
+            status: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+            name: mongoose.connection.name || 'N/A',
+        },
+        memory: {
+            rss: `${Math.round(process.memoryUsage().rss / 1024 / 1024)}MB`,
+            heapUsed: `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`,
+            heapTotal: `${Math.round(process.memoryUsage().heapTotal / 1024 / 1024)}MB`,
+        },
+    };
+
+    try {
+        res.status(200).json(healthcheck);
+    } catch (error) {
+        healthcheck.success = false;
+        healthcheck.message = error.message;
+        res.status(503).json(healthcheck);
+    }
+});
+
+// Legacy health check (redirect to v1)
+app.get('/api/health', (req, res) => {
+    res.redirect('/api/v1/health');
 });
 
 // 404 handler

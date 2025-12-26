@@ -116,6 +116,13 @@ const orderSchema = new mongoose.Schema(
     }
 );
 
+// Create indexes for better query performance
+orderSchema.index({ user: 1, createdAt: -1 }); // User's orders sorted by date
+orderSchema.index({ status: 1 }); // Filter by order status
+orderSchema.index({ createdAt: -1 }); // Sort all orders by date
+orderSchema.index({ isPaid: 1 }); // Filter by payment status
+orderSchema.index({ isDelivered: 1 }); // Filter by delivery status
+
 const Order = mongoose.model('Order', orderSchema);
 
 export default Order;

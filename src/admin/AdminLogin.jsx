@@ -1,23 +1,33 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { authService } from "../services/authService";
 import "./AdminLogin.css";
 
 const AdminLogin = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
 
-    // Simple validation
-    if (username === "admin" && password === "admin123") {
-      // In a real app, you would authenticate with a server
-      localStorage.setItem("isAdmin", "true");
-      navigate("/admin");
-    } else {
-      setError("Invalid username or password");
+    try {
+      const response = await authService.adminLogin({ email, password });
+      if (response.user.role === "admin") {
+        navigate("/admin");
+      } else {
+        setError("Not authorized as admin");
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+      }
+    } catch (err) {
+      setError(err.message || "Login failed. Please check your credentials.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -33,13 +43,13 @@ const AdminLogin = () => {
 
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="email">Email</label>
             <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter your username"
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
               required
             />
           </div>
@@ -56,13 +66,13 @@ const AdminLogin = () => {
             />
           </div>
 
-          <button type="submit" className="login-button">
-            Sign In
+          <button type="submit" className="login-button" disabled={loading}>
+            {loading ? "Signing in..." : "Sign In"}
           </button>
         </form>
 
         <div className="login-footer">
-          <p>Use 'admin' and 'admin123' to login</p>
+          <p>Default: admin@ashion.com / Admin@123456</p>
         </div>
       </div>
     </div>

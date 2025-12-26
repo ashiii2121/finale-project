@@ -58,6 +58,11 @@ const userSchema = new mongoose.Schema(
     }
 );
 
+// Create indexes for better query performance
+userSchema.index({ email: 1 }); // Email lookup (already unique, but explicit index)
+userSchema.index({ role: 1 }); // Filter by role (admin/user)
+userSchema.index({ isActive: 1 }); // Filter by active status
+
 // Encrypt password before saving
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) {
