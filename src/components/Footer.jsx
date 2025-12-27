@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     /* Footer Section Begin */
     <footer className="footer">
@@ -9,7 +11,7 @@ const Footer = () => {
           <div className="col-lg-4 col-md-6 col-sm-7">
             <div className="footer__about">
               <div className="footer__logo">
-                <a href="./index.html">
+                <a href="#" onClick={(e) => { e.preventDefault(); navigate("/"); }}>
                   <img src="/img/logo.png" alt="" />
                 </a>
               </div>
@@ -110,9 +112,9 @@ const Footer = () => {
               <p>
                 {/* Copyright &copy;{" "}
                 <script>document.write(new Date().getFullYear());</script>  */}
-                
-                <i className="fa fa-heart" aria-hidden="true"></i> 
-                <a href target="_blank">
+
+                <i className="fa fa-heart" aria-hidden="true"></i>
+                <a href="#" onClick={(e) => e.preventDefault()}>
                 </a>
               </p>
             </div>
