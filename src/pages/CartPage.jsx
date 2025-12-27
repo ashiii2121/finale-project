@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../hooks/useCart";
 
 const CartPage = () => {
+  const navigate = useNavigate();
   const { cartItems, cartTotal, updateQuantity, removeFromCart } = useCart();
   const [quantities, setQuantities] = useState({});
 
@@ -23,7 +25,8 @@ const CartPage = () => {
     // Initialize quantities state
     const initialQuantities = {};
     cartItems.forEach((item) => {
-      initialQuantities[item.id] = item.quantity;
+      const itemId = item._id || item.id;
+      initialQuantities[itemId] = item.quantity;
     });
     setQuantities(initialQuantities);
 
@@ -74,7 +77,7 @@ const CartPage = () => {
               <div className="breadcrumb__text">
                 <h4>Shopping Cart</h4>
                 <div className="breadcrumb__links">
-                  <a href="/">Home</a>
+                  <a href="#" onClick={(e) => { e.preventDefault(); navigate("/"); }}>Home</a>
                   <span>Shopping Cart</span>
                 </div>
               </div>
@@ -95,7 +98,7 @@ const CartPage = () => {
                   <p>
                     Looks like you haven't added any items to your cart yet.
                   </p>
-                  <a href="/" className="primary-btn mt-3">
+                  <a href="#" onClick={(e) => { e.preventDefault(); navigate("/"); }} className="primary-btn mt-3">
                     Continue Shopping
                   </a>
                 </div>
@@ -112,41 +115,44 @@ const CartPage = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {cartItems.map((item) => (
-                        <tr key={item.id}>
-                          <td className="cart__product__item">
-                            <img src={item.image} alt={item.name} />
-                            <div className="cart__product__item__title">
-                              <h6>{item.name}</h6>
-                              <div className="rating">{renderRating(5)}</div>
-                            </div>
-                          </td>
-                          <td className="cart__price">
-                            ${item.price.toFixed(2)}
-                          </td>
-                          <td className="cart__quantity">
-                            <div className="pro-qty">
-                              <input
-                                type="text"
-                                value={quantities[item.id] || item.quantity}
-                                onChange={(e) =>
-                                  handleQuantityChange(item.id, e.target.value)
-                                }
-                                onBlur={() => handleQuantityBlur(item.id)}
-                              />
-                            </div>
-                          </td>
-                          <td className="cart__total">
-                            ${(item.price * item.quantity).toFixed(2)}
-                          </td>
-                          <td className="cart__close">
-                            <span
-                              className="icon_close"
-                              onClick={() => removeFromCart(item.id)}
-                            ></span>
-                          </td>
-                        </tr>
-                      ))}
+                      {cartItems.map((item) => {
+                        const itemId = item._id || item.id;
+                        return (
+                          <tr key={itemId}>
+                            <td className="cart__product__item">
+                              <img src={item.image} alt={item.name} />
+                              <div className="cart__product__item__title">
+                                <h6>{item.name}</h6>
+                                <div className="rating">{renderRating(5)}</div>
+                              </div>
+                            </td>
+                            <td className="cart__price">
+                              ₹{item.price.toFixed(2)}
+                            </td>
+                            <td className="cart__quantity">
+                              <div className="pro-qty">
+                                <input
+                                  type="text"
+                                  value={quantities[itemId] || item.quantity}
+                                  onChange={(e) =>
+                                    handleQuantityChange(itemId, e.target.value)
+                                  }
+                                  onBlur={() => handleQuantityBlur(itemId)}
+                                />
+                              </div>
+                            </td>
+                            <td className="cart__total">
+                              ₹{(item.price * item.quantity).toFixed(2)}
+                            </td>
+                            <td className="cart__close">
+                              <span
+                                className="icon_close"
+                                onClick={() => removeFromCart(itemId)}
+                              ></span>
+                            </td>
+                          </tr>
+                        )
+                      })}
                     </tbody>
                   </table>
                 </div>
@@ -158,12 +164,12 @@ const CartPage = () => {
               <div className="row">
                 <div className="col-lg-6 col-md-6 col-sm-6">
                   <div className="cart__btn">
-                    <a href="/">Continue Shopping</a>
+                    <a href="#" onClick={(e) => { e.preventDefault(); navigate("/"); }}>Continue Shopping</a>
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6">
                   <div className="cart__btn update__btn">
-                    <a href="#">
+                    <a href="#" onClick={(e) => e.preventDefault()}>
                       <span className="icon_loading"></span> Update cart
                     </a>
                   </div>
@@ -186,13 +192,13 @@ const CartPage = () => {
                     <h6>Cart total</h6>
                     <ul>
                       <li>
-                        Subtotal <span>${cartTotal.toFixed(2)}</span>
+                        Subtotal <span>₹{cartTotal.toFixed(2)}</span>
                       </li>
                       <li>
-                        Total <span>${cartTotal.toFixed(2)}</span>
+                        Total <span>₹{cartTotal.toFixed(2)}</span>
                       </li>
                     </ul>
-                    <a href="/checkout" className="primary-btn">
+                    <a href="#" onClick={(e) => { e.preventDefault(); navigate("/checkout"); }} className="primary-btn">
                       Proceed to checkout
                     </a>
                   </div>

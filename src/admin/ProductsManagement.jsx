@@ -146,11 +146,11 @@ const ProductsManagement = () => {
         products.map((product) =>
           product.id === currentProduct.id
             ? {
-                ...formData,
-                id: currentProduct.id,
-                price: parseFloat(formData.price),
-                stock: parseInt(formData.stock),
-              }
+              ...formData,
+              id: currentProduct.id,
+              price: parseFloat(formData.price),
+              stock: parseInt(formData.stock),
+            }
             : product
         )
       );
@@ -291,7 +291,7 @@ const ProductsManagement = () => {
               </div>
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="price">Price ($)</label>
+                  <label htmlFor="price">Price (₹)</label>
                   <input
                     type="number"
                     id="price"
@@ -409,12 +409,11 @@ const ProductsManagement = () => {
                     <td>
                       <span className="category-badge">{product.category}</span>
                     </td>
-                    <td>${product.price.toFixed(2)}</td>
+                    <td>₹{product.price.toFixed(2)}</td>
                     <td>
                       <span
-                        className={`stock-badge ${
-                          product.stock < 20 ? "low" : ""
-                        }`}
+                        className={`stock-badge ${product.stock < 20 ? "low" : ""
+                          }`}
                       >
                         {product.stock}
                       </span>

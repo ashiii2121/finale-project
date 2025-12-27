@@ -28,16 +28,23 @@ export const CartProvider = ({ children }) => {
   // Add item to cart
   const addToCart = (product) => {
     setCartItems((prevItems) => {
+      // Get product ID (handle both id and _id)
+      const productId = product._id || product.id;
+
       // Check if item already exists in cart
-      const existingItem = prevItems.find((item) => item.id === product.id);
+      const existingItem = prevItems.find((item) => {
+        const itemId = item._id || item.id;
+        return itemId === productId;
+      });
 
       if (existingItem) {
         // If item exists, increase quantity
-        return prevItems.map((item) =>
-          item.id === product.id
+        return prevItems.map((item) => {
+          const itemId = item._id || item.id;
+          return itemId === productId
             ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
+            : item;
+        });
       } else {
         // If item doesn't exist, add it with quantity 1
         return [...prevItems, { ...product, quantity: 1 }];
@@ -48,7 +55,10 @@ export const CartProvider = ({ children }) => {
   // Remove item from cart
   const removeFromCart = (productId) => {
     setCartItems((prevItems) =>
-      prevItems.filter((item) => item.id !== productId)
+      prevItems.filter((item) => {
+        const itemId = item._id || item.id;
+        return itemId !== productId;
+      })
     );
   };
 
@@ -60,9 +70,10 @@ export const CartProvider = ({ children }) => {
     }
 
     setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === productId ? { ...item, quantity } : item
-      )
+      prevItems.map((item) => {
+        const itemId = item._id || item.id;
+        return itemId === productId ? { ...item, quantity } : item;
+      })
     );
   };
 

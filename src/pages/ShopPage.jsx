@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../hooks/useCart";
 import useWishlist from "../hooks/useWishlist";
 
 const ShopPage = () => {
+  const navigate = useNavigate();
   const { addToCart } = useCart();
   const { addToWishlist, isInWishlist } = useWishlist();
   const [showWishlistMessage, setShowWishlistMessage] = useState(false);
@@ -231,7 +233,7 @@ const ShopPage = () => {
               <div className="breadcrumb__text">
                 <h4>Shop</h4>
                 <div className="breadcrumb__links">
-                  <a href="/">Home</a>
+                  <a href="#" onClick={(e) => { e.preventDefault(); navigate("/"); }}>Home</a>
                   <span>Shop</span>
                 </div>
               </div>
@@ -528,17 +530,16 @@ const ShopPage = () => {
                       >
                         {product.label && (
                           <div
-                            className={`label ${
-                              product.label === "stockout"
-                                ? "stockout"
-                                : product.label
-                            }`}
+                            className={`label ${product.label === "stockout"
+                              ? "stockout"
+                              : product.label
+                              }`}
                           >
                             {product.label === "stockout"
                               ? "Out Of Stock"
                               : product.label === "sale"
-                              ? "Sale"
-                              : "New"}
+                                ? "Sale"
+                                : "New"}
                           </div>
                         )}
                         <ul className="product__hover">
@@ -556,11 +557,10 @@ const ShopPage = () => {
                               }}
                             >
                               <span
-                                className={`icon_heart_alt ${
-                                  isInWishlist(product.id)
-                                    ? "wishlist-active"
-                                    : ""
-                                }`}
+                                className={`icon_heart_alt ${isInWishlist(product.id)
+                                  ? "wishlist-active"
+                                  : ""
+                                  }`}
                               ></span>
                             </a>
                           </li>
@@ -579,16 +579,24 @@ const ShopPage = () => {
                       </div>
                       <div className="product__item__text">
                         <h6>
-                          <a href="#">{product.name}</a>
+                          <a
+                            href="#"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              navigate(`/product/${product.id || product._id}`);
+                            }}
+                          >
+                            {product.name}
+                          </a>
                         </h6>
                         <div className="rating">
                           {renderRating(product.rating)}
                         </div>
                         <div className="product__price">
-                          $ {product.price.toFixed(2)}
+                          ₹ {product.price.toFixed(2)}
                           {product.originalPrice &&
                             product.originalPrice > product.price && (
-                              <span> $ {product.originalPrice.toFixed(2)}</span>
+                              <span> ₹ {product.originalPrice.toFixed(2)}</span>
                             )}
                         </div>
                       </div>

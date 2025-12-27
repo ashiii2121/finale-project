@@ -95,7 +95,7 @@ const Analytics = () => {
           <div className="stat-icon revenue">💰</div>
           <div className="stat-info">
             <h3>Total Revenue</h3>
-            <p className="stat-value">$42,680</p>
+            <p className="stat-value">₹42,680</p>
             <span className="stat-change positive">+12.5%</span>
           </div>
         </div>
@@ -119,7 +119,7 @@ const Analytics = () => {
           <div className="stat-icon avg-order">🛒</div>
           <div className="stat-info">
             <h3>Avg. Order Value</h3>
-            <p className="stat-value">$87.50</p>
+            <p className="stat-value">₹87.50</p>
             <span className="stat-change positive">+3.7%</span>
           </div>
         </div>
@@ -236,35 +236,35 @@ const Analytics = () => {
                     <div className="product-name">Summer Dress</div>
                     <div className="product-sales">1,240 sales</div>
                   </div>
-                  <div className="product-revenue">$49,600</div>
+                  <div className="product-revenue">₹49,600</div>
                 </div>
                 <div className="product-item">
                   <div className="product-info">
                     <div className="product-name">Running Shoes</div>
                     <div className="product-sales">980 sales</div>
                   </div>
-                  <div className="product-revenue">$88,200</div>
+                  <div className="product-revenue">₹88,200</div>
                 </div>
                 <div className="product-item">
                   <div className="product-info">
                     <div className="product-name">Casual T-Shirt</div>
                     <div className="product-sales">870 sales</div>
                   </div>
-                  <div className="product-revenue">$25,230</div>
+                  <div className="product-revenue">₹25,230</div>
                 </div>
                 <div className="product-item">
                   <div className="product-info">
                     <div className="product-name">Leather Wallet</div>
                     <div className="product-sales">650 sales</div>
                   </div>
-                  <div className="product-revenue">$25,350</div>
+                  <div className="product-revenue">₹25,350</div>
                 </div>
                 <div className="product-item">
                   <div className="product-info">
                     <div className="product-name">Sunglasses</div>
                     <div className="product-sales">540 sales</div>
                   </div>
-                  <div className="product-revenue">$31,860</div>
+                  <div className="product-revenue">₹31,860</div>
                 </div>
               </div>
             )}

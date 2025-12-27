@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../hooks/useCart";
 import useWishlist from "../hooks/useWishlist";
 
 const WomensPage = () => {
+  const navigate = useNavigate();
   const { addToCart } = useCart();
   const { addToWishlist, isInWishlist } = useWishlist();
   const [showWishlistMessage, setShowWishlistMessage] = useState(false);
@@ -144,8 +146,8 @@ const WomensPage = () => {
               <div className="breadcrumb__text">
                 <h4>Women's Collection</h4>
                 <div className="breadcrumb__links">
-                  <a href="/">Home</a>
-                  <span>Women's</span>
+                  <a href="#" onClick={(e) => { e.preventDefault(); navigate("/"); }}>Home</a>
+                  <span>Women's Collection</span>
                 </div>
               </div>
             </div>
@@ -471,11 +473,10 @@ const WomensPage = () => {
                             }}
                           >
                             <span
-                              className={`icon_heart_alt ${
-                                isInWishlist(getProductByIndex(0).id)
-                                  ? "wishlist-active"
-                                  : ""
-                              }`}
+                              className={`icon_heart_alt ${isInWishlist(getProductByIndex(0).id)
+                                ? "wishlist-active"
+                                : ""
+                                }`}
                             ></span>
                           </a>
                         </li>
@@ -494,13 +495,21 @@ const WomensPage = () => {
                     </div>
                     <div className="product__item__text">
                       <h6>
-                        <a href="#">{getProductByIndex(0).name}</a>
+                        <a
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigate(`/product/${getProductByIndex(0).id}`);
+                          }}
+                        >
+                          {getProductByIndex(0).name}
+                        </a>
                       </h6>
                       <div className="rating">
                         {renderRating(getProductByIndex(0).rating)}
                       </div>
                       <div className="product__price">
-                        $ {getProductByIndex(0).price.toFixed(2)}
+                        ₹ {getProductByIndex(0).price.toFixed(2)}
                         {getProductByIndex(0).originalPrice && (
                           <span>
                             {" "}
@@ -546,11 +555,10 @@ const WomensPage = () => {
                             }}
                           >
                             <span
-                              className={`icon_heart_alt ${
-                                isInWishlist(getProductByIndex(1).id)
-                                  ? "wishlist-active"
-                                  : ""
-                              }`}
+                              className={`icon_heart_alt ${isInWishlist(getProductByIndex(1).id)
+                                ? "wishlist-active"
+                                : ""
+                                }`}
                             ></span>
                           </a>
                         </li>
@@ -569,13 +577,21 @@ const WomensPage = () => {
                     </div>
                     <div className="product__item__text">
                       <h6>
-                        <a href="#">{getProductByIndex(1).name}</a>
+                        <a
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigate(`/product/${getProductByIndex(1).id}`);
+                          }}
+                        >
+                          {getProductByIndex(1).name}
+                        </a>
                       </h6>
                       <div className="rating">
                         {renderRating(getProductByIndex(1).rating)}
                       </div>
                       <div className="product__price">
-                        $ {getProductByIndex(1).price.toFixed(2)}
+                        ₹ {getProductByIndex(1).price.toFixed(2)}
                         {getProductByIndex(1).originalPrice && (
                           <span>
                             {" "}
@@ -614,11 +630,10 @@ const WomensPage = () => {
                             }}
                           >
                             <span
-                              className={`icon_heart_alt ${
-                                isInWishlist(getProductByIndex(2).id)
-                                  ? "wishlist-active"
-                                  : ""
-                              }`}
+                              className={`icon_heart_alt ${isInWishlist(getProductByIndex(2).id)
+                                ? "wishlist-active"
+                                : ""
+                                }`}
                             ></span>
                           </a>
                         </li>
@@ -637,13 +652,21 @@ const WomensPage = () => {
                     </div>
                     <div className="product__item__text">
                       <h6>
-                        <a href="#">{getProductByIndex(2).name}</a>
+                        <a
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigate(`/product/${getProductByIndex(2).id}`);
+                          }}
+                        >
+                          {getProductByIndex(2).name}
+                        </a>
                       </h6>
                       <div className="rating">
                         {renderRating(getProductByIndex(2).rating)}
                       </div>
                       <div className="product__price">
-                        $ {getProductByIndex(2).price.toFixed(2)}
+                        ₹ {getProductByIndex(2).price.toFixed(2)}
                       </div>
                     </div>
                   </div>
@@ -676,11 +699,10 @@ const WomensPage = () => {
                             }}
                           >
                             <span
-                              className={`icon_heart_alt ${
-                                isInWishlist(getProductByIndex(3).id)
-                                  ? "wishlist-active"
-                                  : ""
-                              }`}
+                              className={`icon_heart_alt ${isInWishlist(getProductByIndex(3).id)
+                                ? "wishlist-active"
+                                : ""
+                                }`}
                             ></span>
                           </a>
                         </li>
@@ -699,13 +721,21 @@ const WomensPage = () => {
                     </div>
                     <div className="product__item__text">
                       <h6>
-                        <a href="#">{getProductByIndex(3).name}</a>
+                        <a
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigate(`/product/${getProductByIndex(3).id}`);
+                          }}
+                        >
+                          {getProductByIndex(3).name}
+                        </a>
                       </h6>
                       <div className="rating">
                         {renderRating(getProductByIndex(3).rating)}
                       </div>
                       <div className="product__price">
-                        $ {getProductByIndex(3).price.toFixed(2)}
+                        ₹ {getProductByIndex(3).price.toFixed(2)}
                       </div>
                     </div>
                   </div>
@@ -745,11 +775,10 @@ const WomensPage = () => {
                             }}
                           >
                             <span
-                              className={`icon_heart_alt ${
-                                isInWishlist(getProductByIndex(4).id)
-                                  ? "wishlist-active"
-                                  : ""
-                              }`}
+                              className={`icon_heart_alt ${isInWishlist(getProductByIndex(4).id)
+                                ? "wishlist-active"
+                                : ""
+                                }`}
                             ></span>
                           </a>
                         </li>
@@ -768,13 +797,21 @@ const WomensPage = () => {
                     </div>
                     <div className="product__item__text">
                       <h6>
-                        <a href="#">{getProductByIndex(4).name}</a>
+                        <a
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigate(`/product/${getProductByIndex(4).id}`);
+                          }}
+                        >
+                          {getProductByIndex(4).name}
+                        </a>
                       </h6>
                       <div className="rating">
                         {renderRating(getProductByIndex(4).rating)}
                       </div>
                       <div className="product__price">
-                        $ {getProductByIndex(4).price.toFixed(2)}
+                        ₹ {getProductByIndex(4).price.toFixed(2)}
                       </div>
                     </div>
                   </div>
@@ -807,11 +844,10 @@ const WomensPage = () => {
                             }}
                           >
                             <span
-                              className={`icon_heart_alt ${
-                                isInWishlist(getProductByIndex(5).id)
-                                  ? "wishlist-active"
-                                  : ""
-                              }`}
+                              className={`icon_heart_alt ${isInWishlist(getProductByIndex(5).id)
+                                ? "wishlist-active"
+                                : ""
+                                }`}
                             ></span>
                           </a>
                         </li>
@@ -830,13 +866,21 @@ const WomensPage = () => {
                     </div>
                     <div className="product__item__text">
                       <h6>
-                        <a href="#">{getProductByIndex(5).name}</a>
+                        <a
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigate(`/product/${getProductByIndex(5).id}`);
+                          }}
+                        >
+                          {getProductByIndex(5).name}
+                        </a>
                       </h6>
                       <div className="rating">
                         {renderRating(getProductByIndex(5).rating)}
                       </div>
                       <div className="product__price">
-                        $ {getProductByIndex(5).price.toFixed(2)}
+                        ₹ {getProductByIndex(5).price.toFixed(2)}
                       </div>
                     </div>
                   </div>

@@ -10,7 +10,7 @@ const AdminDashboard = () => {
   const stats = [
     {
       title: "Total Sales",
-      value: "$24,780",
+      value: "₹24,780",
       change: "+12.5%",
       icon: "💰",
       color: "#4361ee",
@@ -44,7 +44,7 @@ const AdminDashboard = () => {
       id: "#ORD-7841",
       customer: "John Smith",
       date: "2023-06-15",
-      amount: "$124.99",
+      amount: "₹124.99",
       status: "Completed",
       avatar: "JS",
     },
@@ -52,7 +52,7 @@ const AdminDashboard = () => {
       id: "#ORD-7842",
       customer: "Emma Johnson",
       date: "2023-06-15",
-      amount: "$89.50",
+      amount: "₹89.50",
       status: "Processing",
       avatar: "EJ",
     },
@@ -60,7 +60,7 @@ const AdminDashboard = () => {
       id: "#ORD-7843",
       customer: "Michael Brown",
       date: "2023-06-14",
-      amount: "$210.00",
+      amount: "₹210.00",
       status: "Pending",
       avatar: "MB",
     },
@@ -68,7 +68,7 @@ const AdminDashboard = () => {
       id: "#ORD-7844",
       customer: "Sarah Davis",
       date: "2023-06-14",
-      amount: "$65.75",
+      amount: "₹65.75",
       status: "Completed",
       avatar: "SD",
     },
@@ -76,7 +76,7 @@ const AdminDashboard = () => {
       id: "#ORD-7845",
       customer: "Robert Wilson",
       date: "2023-06-13",
-      amount: "$199.99",
+      amount: "₹199.99",
       status: "Cancelled",
       avatar: "RW",
     },
@@ -84,11 +84,11 @@ const AdminDashboard = () => {
 
   // Mock data for top products
   const topProducts = [
-    { name: "Summer Dress", sales: 124, revenue: "$4,960" },
-    { name: "Running Shoes", sales: 98, revenue: "$8,820" },
-    { name: "Casual T-Shirt", sales: 87, revenue: "$2,523" },
-    { name: "Leather Wallet", sales: 65, revenue: "$2,535" },
-    { name: "Sunglasses", sales: 54, revenue: "$3,186" },
+    { name: "Summer Dress", sales: 124, revenue: "₹4,960" },
+    { name: "Running Shoes", sales: 98, revenue: "₹8,820" },
+    { name: "Casual T-Shirt", sales: 87, revenue: "₹2,523" },
+    { name: "Leather Wallet", sales: 65, revenue: "₹2,535" },
+    { name: "Sunglasses", sales: 54, revenue: "₹3,186" },
   ];
 
   // Generate mock sales data

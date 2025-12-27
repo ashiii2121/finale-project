@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
-import useWishlist from "../hooks/useWishlist"; // Fixed import
+import { useNavigate } from "react-router-dom";
+import useWishlist from "../hooks/useWishlist";
 import { useCart } from "../hooks/useCart";
 
 const WishlistPage = () => {
-  const { wishlistItems, removeFromWishlist } = useWishlist(); // Fixed import
+  const navigate = useNavigate();
+  const { wishlist, removeFromWishlist } = useWishlist();
   const { addToCart } = useCart();
 
   useEffect(() => {
@@ -54,7 +56,7 @@ const WishlistPage = () => {
               <div className="breadcrumb__text">
                 <h4>Wishlist</h4>
                 <div className="breadcrumb__links">
-                  <a href="/">Home</a>
+                  <a href="#" onClick={(e) => { e.preventDefault(); navigate("/"); }}>Home</a>
                   <span>Wishlist</span>
                 </div>
               </div>
@@ -81,8 +83,8 @@ const WishlistPage = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {wishlistItems.length > 0 ? (
-                      wishlistItems.map((item) => (
+                    {wishlist.length > 0 ? (
+                      wishlist.map((item) => (
                         <tr key={item.id}>
                           <td className="cart__product__item">
                             <img src={`/${item.image}`} alt={item.name} />
@@ -94,7 +96,7 @@ const WishlistPage = () => {
                             </div>
                           </td>
                           <td className="cart__price">
-                            $ {item.price.toFixed(2)}
+                            ₹ {item.price.toFixed(2)}
                           </td>
                           <td className="cart__stock">In Stock</td>
                           <td className="cart__btn">
@@ -132,8 +134,8 @@ const WishlistPage = () => {
           </div>
           <div className="row">
             <div className="col-lg-6 col-md-6 col-sm-6">
-              <div className="cart__btn">
-                <a href="/">Continue Shopping</a>
+              <div className="text-center mt-5">
+                <a href="#" onClick={(e) => { e.preventDefault(); navigate("/"); }}>Continue Shopping</a>
               </div>
             </div>
             <div className="col-lg-6 col-md-6 col-sm-6">

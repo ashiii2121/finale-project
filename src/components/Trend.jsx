@@ -24,7 +24,7 @@ const Trend = () => {
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
                   </div>
-                  <div className="product__price">$ 59.0</div>
+                  <div className="product__price">₹ 59.0</div>
                 </div>
               </div>
               <div className="trend__item">
@@ -40,7 +40,7 @@ const Trend = () => {
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
                   </div>
-                  <div className="product__price">$ 59.0</div>
+                  <div className="product__price">₹ 59.0</div>
                 </div>
               </div>
               <div className="trend__item">
@@ -56,7 +56,7 @@ const Trend = () => {
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
                   </div>
-                  <div className="product__price">$ 59.0</div>
+                  <div className="product__price">₹ 59.0</div>
                 </div>
               </div>
             </div>
@@ -79,7 +79,7 @@ const Trend = () => {
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
                   </div>
-                  <div className="product__price">$ 59.0</div>
+                  <div className="product__price">₹ 59.0</div>
                 </div>
               </div>
               <div className="trend__item">
@@ -98,7 +98,7 @@ const Trend = () => {
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
                   </div>
-                  <div className="product__price">$ 59.0</div>
+                  <div className="product__price">₹ 59.0</div>
                 </div>
               </div>
               <div className="trend__item">
@@ -114,7 +114,7 @@ const Trend = () => {
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
                   </div>
-                  <div className="product__price">$ 59.0</div>
+                  <div className="product__price">₹ 59.0</div>
                 </div>
               </div>
             </div>
@@ -137,7 +137,7 @@ const Trend = () => {
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
                   </div>
-                  <div className="product__price">$ 59.0</div>
+                  <div className="product__price">₹ 59.0</div>
                 </div>
               </div>
               <div className="trend__item">
@@ -153,7 +153,7 @@ const Trend = () => {
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
                   </div>
-                  <div className="product__price">$ 59.0</div>
+                  <div className="product__price">₹ 59.0</div>
                 </div>
               </div>
               <div className="trend__item">
@@ -169,7 +169,7 @@ const Trend = () => {
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
                   </div>
-                  <div className="product__price">$ 59.0</div>
+                  <div className="product__price">₹ 59.0</div>
                 </div>
               </div>
             </div>

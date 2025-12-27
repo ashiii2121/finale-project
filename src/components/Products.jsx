@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../hooks/useCart";
 import useWishlist from "../hooks/useWishlist";
 import { productService } from "../services/productService";
 
 const Products = () => {
+  const navigate = useNavigate();
   const { addToCart } = useCart();
   const { addToWishlist, isInWishlist } = useWishlist();
   const [showWishlistMessage, setShowWishlistMessage] = useState(false);
@@ -195,13 +197,21 @@ const Products = () => {
                 </div>
                 <div className="product__item__text">
                   <h6>
-                    <a href="#">{product.name}</a>
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigate(`/product/${product._id}`);
+                      }}
+                    >
+                      {product.name}
+                    </a>
                   </h6>
                   <div className="rating">{renderRating(product.rating)}</div>
                   <div className="product__price">
-                    $ {product.price.toFixed(2)}
+                    ₹ {product.price.toFixed(2)}
                     {product.originalPrice && (
-                      <span> ${product.originalPrice.toFixed(2)}</span>
+                      <span> ₹{product.originalPrice.toFixed(2)}</span>
                     )}
                   </div>
                 </div>
